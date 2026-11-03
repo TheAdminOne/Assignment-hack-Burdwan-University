@@ -105,7 +105,7 @@ Sum of first 10 terms = 2.928968
 1. **Writing `1 / i` instead of `1.0 / i`** — integer division yields 0 for every term → sum = 0.
 2. **Declaring `sum` as `int`** — decimal part lost.
 3. **Starting the loop at 0** — `1.0/0` is division by zero (undefined/error).
-4. **Using `double` but printing with `%f`** — works, but `%lf` is more correct for `double`.
+4. **Using `%f` vs `%lf` incorrectly** — `printf` accepts `%f` for `double` (and `%lf` also works in C99); `scanf` requires `%lf` when reading a `double`.
 
 ### 10. Alternative Version — using `double`
 

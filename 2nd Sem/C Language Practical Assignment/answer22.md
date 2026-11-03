@@ -1,4 +1,4 @@
-﻿# 22. Create Matrix Class Using Templates — Menu-Driven Program (Product, Transpose, Sum, Difference)
+# 22. Create Matrix Class Using Templates — Menu-Driven Program (Product, Transpose, Sum, Difference)
 
 ### 1. Problem Understanding
 
@@ -56,8 +56,44 @@ public:
         delete[] data;
     }
 
-    int getRows() { return rows; }
-    int getCols() { return cols; }
+    /* copy constructor: deep copy so returned objects own their own memory */
+    Matrix(const Matrix &other)
+    {
+        rows = other.rows;
+        cols = other.cols;
+        data = new T *[rows];
+        for (int i = 0; i < rows; i++)
+        {
+            data[i] = new T[cols];
+            for (int j = 0; j < cols; j++)
+                data[i][j] = other.data[i][j];
+        }
+    }
+
+    /* copy assignment: deep copy with self-assignment check */
+    Matrix &operator=(const Matrix &other)
+    {
+        if (this == &other)
+            return *this;
+
+        for (int i = 0; i < rows; i++)
+            delete[] data[i];
+        delete[] data;
+
+        rows = other.rows;
+        cols = other.cols;
+        data = new T *[rows];
+        for (int i = 0; i < rows; i++)
+        {
+            data[i] = new T[cols];
+            for (int j = 0; j < cols; j++)
+                data[i][j] = other.data[i][j];
+        }
+        return *this;
+    }
+
+    int getRows() const { return rows; }
+    int getCols() const { return cols; }
 
     /* read the matrix */
     void read()
@@ -68,7 +104,7 @@ public:
     }
 
     /* display the matrix */
-    void display()
+    void display() const
     {
         for (int i = 0; i < rows; i++)
         {
@@ -79,19 +115,19 @@ public:
     }
 
     /* transpose: returns a new Matrix with rows and cols swapped */
-    Matrix transpose()
+    Matrix<T> transpose() const
     {
-        Matrix T(cols, rows);
+        Matrix<T> result(cols, rows);
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < cols; j++)
-                T.data[j][i] = data[i][j];
-        return T;
+                result.data[j][i] = data[i][j];
+        return result;
     }
 
     /* sum: this + other (dimensions must match) */
-    Matrix operator+(Matrix &other)
+    Matrix<T> operator+(const Matrix<T> &other) const
     {
-        Matrix res(rows, cols);
+        Matrix<T> res(rows, cols);
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < cols; j++)
                 res.data[i][j] = data[i][j] + other.data[i][j];
@@ -99,9 +135,9 @@ public:
     }
 
     /* difference: this - other (dimensions must match) */
-    Matrix operator-(Matrix &other)
+    Matrix<T> operator-(const Matrix<T> &other) const
     {
-        Matrix res(rows, cols);
+        Matrix<T> res(rows, cols);
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < cols; j++)
                 res.data[i][j] = data[i][j] - other.data[i][j];
@@ -109,9 +145,9 @@ public:
     }
 
     /* product: this * other (this.cols must equal other.rows) */
-    Matrix operator*(Matrix &other)
+    Matrix<T> operator*(const Matrix<T> &other) const
     {
-        Matrix res(rows, other.cols);
+        Matrix<T> res(rows, other.cols);
         for (int i = 0; i < rows; i++)
         {
             for (int j = 0; j < other.cols; j++)
@@ -219,10 +255,12 @@ int main()
 | `T **data;` | 2D dynamic array — pointer to rows, each row a pointer to columns |
 | `data[i] = new T[cols];` | Allocates each row in the constructor |
 | `~Matrix()` | **Destructor** — frees every row, then the row array (prevents memory leak) |
-| `Matrix transpose()` | Returns a matrix with swapped dimensions; `T.data[j][i] = data[i][j]` |
-| `Matrix operator+(Matrix &other)` | **Operator overload** — adds element-wise; must validate equal sizes before calling |
-| `Matrix operator-(Matrix &other)` | Element-wise subtraction |
-| `Matrix operator*(Matrix &other)` | **Triple loop** — standard matrix multiplication (rows × cols × inner) |
+| `Matrix(const Matrix &other)` | **Deep-copy constructor** — allocates and copies every element, so returned matrices do not share memory |
+| `Matrix &operator=(const Matrix &other)` | **Deep-copy assignment** — releases old memory, then copies the other matrix; handles self-assignment |
+| `Matrix<T> transpose() const` | Returns a matrix with swapped dimensions; `result.data[j][i] = data[i][j]` |
+| `Matrix<T> operator+(const Matrix<T> &other) const` | **Operator overload** — adds element-wise; must validate equal sizes before calling |
+| `Matrix<T> operator-(const Matrix<T> &other) const` | Element-wise subtraction |
+| `Matrix<T> operator*(const Matrix<T> &other) const` | **Triple loop** — standard matrix multiplication (rows × cols × inner) |
 | `for k... res.data[i][j] += data[i][k] * other.data[k][j]` | The dot product of row `i` of A with column `j` of B |
 | `Matrix<int> A(r1, c1);` | Instantiates the template with `T = int` |
 
@@ -329,7 +367,7 @@ Exiting...
 
 1. **Missing dimension checks** — matrix product and sum crash or read out-of-bounds memory if dimensions don't match. Always validate first.
 2. **Transpose in-place on a rectangular matrix** — the result has different dimensions, so it **must** go into a new matrix (as done here).
-3. **Not freeing memory in the destructor** — memory leak; also the compiler-generated **copy constructor** would share the same `data` pointer (shallow copy → double free). For safety add a copy constructor / copy assignment, or use `vector<vector<T>>`.
+3. **Not freeing memory in the destructor** — memory leak. Also, without the deep-copy constructor/assignment included above, the compiler-generated copy would share the same `data` pointer (shallow copy → double free). The main version now implements deep copy; the `vector` version avoids the issue entirely.
 4. **Initialising `res.data[i][j] = 0;` before the k-loop** — otherwise the product accumulates garbage.
 5. **Template code split across .cpp files** — templates must be fully visible at instantiation (header or same file).
 6. **Integer overflow** for large products — use `double` or `long long` as the type parameter.
@@ -360,7 +398,7 @@ public:
                 cin >> data[i][j];
     }
 
-    void display()
+    void display() const
     {
         for (int i = 0; i < rows; i++)
         {
@@ -370,36 +408,36 @@ public:
         }
     }
 
-    Matrix transpose()
+    Matrix<T> transpose() const
     {
-        Matrix T(cols, rows);
+        Matrix<T> result(cols, rows);
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < cols; j++)
-                T.data[j][i] = data[i][j];
-        return T;
+                result.data[j][i] = data[i][j];
+        return result;
     }
 
-    Matrix operator+(Matrix &o)
+    Matrix<T> operator+(const Matrix<T> &o) const
     {
-        Matrix r(rows, cols);
+        Matrix<T> r(rows, cols);
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < cols; j++)
                 r.data[i][j] = data[i][j] + o.data[i][j];
         return r;
     }
 
-    Matrix operator-(Matrix &o)
+    Matrix<T> operator-(const Matrix<T> &o) const
     {
-        Matrix r(rows, cols);
+        Matrix<T> r(rows, cols);
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < cols; j++)
                 r.data[i][j] = data[i][j] - o.data[i][j];
         return r;
     }
 
-    Matrix operator*(Matrix &o)
+    Matrix<T> operator*(const Matrix<T> &o) const
     {
-        Matrix r(rows, o.cols);
+        Matrix<T> r(rows, o.cols);
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < o.cols; j++)
                 for (int k = 0; k < cols; k++)
@@ -418,269 +456,5 @@ public:
 | Sum (A+B) | [[6,8],[10,12]] |
 | Difference (A−B) | [[−4,−4],[−4,−4]] |
 | Transpose of A | [[1,3],[2,4]] |
-
----
-
-# (h) Menu-Driven Program to Find Area of Rectangle, Square, Circle, and Triangle Using User-Defined Functions
-
-### 1. Problem Understanding
-
-Write a **menu-driven** C program that uses **user-defined functions** to compute areas:
-
-| Shape | Formula | Inputs needed |
-|---|---|---|
-| Rectangle | length × breadth | l, b |
-| Square | side × side | s |
-| Circle | π × r² | r |
-| Triangle | ½ × base × height | b, h |
-
-The program shows a menu, the user picks a shape, enters the measurements, and a dedicated function computes and prints the area.
-
-### 2. Key Concepts Used
-
-| Concept | Explanation |
-|---|---|
-| User-defined functions | `rectArea()`, `squareArea()`, `circleArea()`, `triangleArea()` |
-| Menu + `switch` | User selects an option; dispatch to the right function |
-| `float` return type | Areas are fractional (especially circle/triangle) |
-| `#define PI` | Constant for π |
-| `do…while` | Loop the menu until the user quits |
-
-### 3. Algorithm (Step-by-Step)
-
-1. Start.
-2. Show the menu (Rectangle / Square / Circle / Triangle / Exit).
-3. Read the user's choice.
-4. **Switch on choice:**
-   - **1 (Rectangle):** read l, b → call `rectArea(l, b)`.
-   - **2 (Square):** read s → call `squareArea(s)`.
-   - **3 (Circle):** read r → call `circleArea(r)`.
-   - **4 (Triangle):** read b, h → call `triangleArea(b, h)`.
-   - **5:** quit.
-5. Repeat from step 2 until the user quits.
-
-### 4. The C Program (Source Code)
-
-```c
-#include <stdio.h>
-#define PI 3.14159
-
-/* area of rectangle */
-float rectArea(float l, float b)
-{
-    return l * b;
-}
-
-/* area of square */
-float squareArea(float s)
-{
-    return s * s;
-}
-
-/* area of circle */
-float circleArea(float r)
-{
-    return PI * r * r;
-}
-
-/* area of triangle */
-float triangleArea(float base, float height)
-{
-    return 0.5 * base * height;
-}
-
-int main()
-{
-    int choice;
-    float l, b, s, r, base, height;
-
-    do {
-        printf("\n------------ AREA MENU ------------\n");
-        printf("1. Rectangle\n");
-        printf("2. Square\n");
-        printf("3. Circle\n");
-        printf("4. Triangle\n");
-        printf("5. Exit\n");
-        printf("Enter your choice: ");
-        scanf("%d", &choice);
-
-        switch (choice)
-        {
-            case 1:
-                printf("Enter length and breadth: ");
-                scanf("%f %f", &l, &b);
-                printf("Area of Rectangle = %.2f\n", rectArea(l, b));
-                break;
-
-            case 2:
-                printf("Enter side: ");
-                scanf("%f", &s);
-                printf("Area of Square = %.2f\n", squareArea(s));
-                break;
-
-            case 3:
-                printf("Enter radius: ");
-                scanf("%f", &r);
-                printf("Area of Circle = %.2f\n", circleArea(r));
-                break;
-
-            case 4:
-                printf("Enter base and height: ");
-                scanf("%f %f", &base, &height);
-                printf("Area of Triangle = %.2f\n", triangleArea(base, height));
-                break;
-
-            case 5:
-                printf("Exiting...\n");
-                break;
-
-            default:
-                printf("Invalid choice! Try again.\n");
-        }
-    } while (choice != 5);
-
-    return 0;
-}
-```
-
-### 5. Line-by-Line Explanation
-
-| Code | What it does |
-|---|---|
-| `#define PI 3.14159` | Constant for π used by the circle function |
-| `float rectArea(float l, float b)` | User-defined function — returns `l × b` |
-| `float squareArea(float s)` | Returns `s × s` |
-| `float circleArea(float r)` | Returns `π × r²` |
-| `float triangleArea(float base, float height)` | Returns `½ × base × height` |
-| `do { … } while (choice != 5);` | Menu reappears until the user selects Exit |
-| `scanf("%f %f", &l, &b)` | Reads two floats — note `&` for each variable |
-| `printf("Area of Rectangle = %.2f\n", rectArea(l, b));` | Calls the function **and** prints its returned value |
-
-### 6. Dry Run
-
-**Choice 1 (Rectangle), l = 5, b = 3:**
-- `rectArea(5, 3)` → 5 × 3 = **15.00**
-
-**Choice 3 (Circle), r = 7:**
-- `circleArea(7)` → 3.14159 × 49 = **153.94**
-
-**Choice 4 (Triangle), base = 8, height = 5:**
-- `triangleArea(8, 5)` → 0.5 × 8 × 5 = **20.00**
-
-### 7. Sample Input / Output
-
-```
------------- AREA MENU ------------
-1. Rectangle
-2. Square
-3. Circle
-4. Triangle
-5. Exit
-Enter your choice: 1
-Enter length and breadth: 5 3
-Area of Rectangle = 15.00
-
-Enter your choice: 2
-Enter side: 6
-Area of Square = 36.00
-
-Enter your choice: 3
-Enter radius: 7
-Area of Circle = 153.94
-
-Enter your choice: 4
-Enter base and height: 8 5
-Area of Triangle = 20.00
-
-Enter your choice: 5
-Exiting...
-```
-
-### 8. Edge Cases Table
-
-| Case | Behaviour |
-|---|---|
-| Zero dimensions | Area = 0 (mathematically degenerate but computed fine) |
-| Decimal values | Work correctly (float inputs) |
-| Negative dimensions | Produce negative area — optionally validate |
-| Invalid menu choice | "Invalid choice! Try again." — menu loops |
-| Circle with r = 1 | Area = 3.14159 (≈ π) |
-
-### 9. Common Mistakes to Avoid
-
-1. **Using `int` for dimensions** — areas like triangle (0.5 × b × h) lose decimals; use `float`.
-2. **Integer division** — `1/2 * base * height` in C is **0** (integer division). Always write `0.5 * base * height`.
-3. **Forgetting `&` in `scanf`** — without it, garbage is read.
-4. **Not using user-defined functions** — the assignment explicitly requires them; each shape must have its own function.
-5. **Defining `PI` inside the function** — define it once with `#define` at the top (or use `M_PI` from `<math.h>`).
-6. **Forgetting the `default` case** — invalid input would silently do nothing.
-
-### 10. Alternative Version — `void` functions printing inside
-
-```c
-#include <stdio.h>
-#define PI 3.14159
-
-void rectArea(void)
-{
-    float l, b;
-    printf("Enter length and breadth: ");
-    scanf("%f %f", &l, &b);
-    printf("Area of Rectangle = %.2f\n", l * b);
-}
-
-void squareArea(void)
-{
-    float s;
-    printf("Enter side: ");
-    scanf("%f", &s);
-    printf("Area of Square = %.2f\n", s * s);
-}
-
-void circleArea(void)
-{
-    float r;
-    printf("Enter radius: ");
-    scanf("%f", &r);
-    printf("Area of Circle = %.2f\n", PI * r * r);
-}
-
-void triangleArea(void)
-{
-    float base, height;
-    printf("Enter base and height: ");
-    scanf("%f %f", &base, &height);
-    printf("Area of Triangle = %.2f\n", 0.5 * base * height);
-}
-
-int main()
-{
-    int choice;
-    do {
-        printf("\n1.Rectangle  2.Square  3.Circle  4.Triangle  5.Exit\n");
-        printf("Enter your choice: ");
-        scanf("%d", &choice);
-        switch (choice)
-        {
-            case 1: rectArea();     break;
-            case 2: squareArea();   break;
-            case 3: circleArea();   break;
-            case 4: triangleArea(); break;
-            case 5: printf("Exiting...\n"); break;
-            default: printf("Invalid choice!\n");
-        }
-    } while (choice != 5);
-    return 0;
-}
-```
-
-### 11. Brief Result Table (for the lab record)
-
-| Shape | Inputs | Formula | Area |
-|---|---|---|---|
-| Rectangle | l=5, b=3 | l × b | 15.00 |
-| Square | s=6 | s² | 36.00 |
-| Circle | r=7 | πr² | 153.94 |
-| Triangle | base=8, height=5 | ½ × b × h | 20.00 |
 
 ---

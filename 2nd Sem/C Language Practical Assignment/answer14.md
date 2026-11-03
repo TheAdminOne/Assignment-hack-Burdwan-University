@@ -171,8 +171,12 @@ int main()
 **Version B — using `double` and `M_PI` from `<math.h>`:**
 ```c
 #include <stdio.h>
-#include <math.h>
 #define _USE_MATH_DEFINES
+#include <math.h>
+
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
 
 double computeArea(double r) { return M_PI * r * r; }
 double computeCircum(double r) { return 2 * M_PI * r; }

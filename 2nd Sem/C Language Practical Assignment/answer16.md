@@ -53,6 +53,7 @@ main()
 
 ```c
 #include <stdio.h>
+#include <string.h>
 
 /* 1. show address of each character */
 void showAddresses(char s[])
@@ -252,7 +253,7 @@ int main()
 }
 ```
 
-> **Note:** This uses `strcat` in case 3, so include `<string.h>` at the top: `#include <string.h>`. (Some compilers auto-include, but it is best practice.)
+> **Note:** `<string.h>` is included because case 3 uses the library function `strcat`.
 
 ### 5. Line-by-Line Explanation of Each Function
 

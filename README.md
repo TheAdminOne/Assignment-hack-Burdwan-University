@@ -6,8 +6,8 @@
 
 ![Badge](https://img.shields.io/badge/University-Burdwan%20University-blue?style=flat-square)
 ![Badge](https://img.shields.io/badge/Status-Active-brightgreen?style=flat-square)
-![Badge](https://img.shields.io/badge/Assignments-3%20Subjects%20%E2%9C%85-success?style=flat-square)
-![Badge](https://img.shields.io/badge/Answers-39%20Complete-ff69b4?style=flat-square)
+![Badge](https://img.shields.io/badge/Assignments-4%20Subjects%20%E2%9C%85-success?style=flat-square)
+![Badge](https://img.shields.io/badge/Answers-53%20Complete-ff69b4?style=flat-square)
 
 </div>
 
@@ -44,6 +44,7 @@ Each section below expands when tapped. Semesters with assignments are marked **
 | Assignment | Subject | Status | Open |
 |---|---|---|---|
 | 🐍 | **Python Lab Assignment** | ✅ 9 answers ready | [Open →](1st%20Sem/Python%20Lab/question.md) |
+| 🧮 | **Algorithm & Flowchart Assignment** | ✅ 14 algorithm + flowchart answers | [Open →](1st%20Sem/Algorithm%20%26%20Flowchart%20Assignment/question.md) |
 
 </details>
 
@@ -53,7 +54,7 @@ Each section below expands when tapped. Semesters with assignments are marked **
 | Assignment | Subject | Status | Open |
 |---|---|---|---|
 | 📘 | **C Language Practical Assignment** | ✅ 23 answers ready | [Open →](2nd%20Sem/C%20Language%20Practical%20Assignment/question.md) |
-| 🖥️ | **System Administration & Maintenance (Linux) Assignment** | ✅ 7 answers ready | [Open →](2nd%20Sem/System%20Administration%20%26%20Maintenance%20(Linux)%20Assignment/question.md) |
+| 🖥️ | **System Administration & Maintenance (Linux) Assignment** | ✅ 7 answers ready | [Open →](2nd%20Sem/System%20Administration%20%26%20Maintenance%20%28Linux%29%20Assignment/question.md) |
 
 </details>
 
@@ -111,7 +112,7 @@ Each section below expands when tapped. Semesters with assignments are marked **
 
 | Semester | Content | Progress |
 |---|---|---|
-| Semester 1 | Python Lab ✅ | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 **100%** |
+| Semester 1 | Python Lab ✅ · Algorithm & Flowchart ✅ | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 **100%** |
 | Semester 2 | C Practical ✅ · Linux Sysadmin ✅ | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 **100%** |
 | Semester 3 | — | ⏳ |
 | Semester 4 | — | ⏳ |
@@ -134,7 +135,9 @@ Every subject folder follows the same clean pattern:
  └── ...                 ← one file per question
 ```
 
-### ✨ Every Answer Includes
+### ✨ What an Answer Usually Includes
+
+Coding answers generally follow this structure:
 
 1. Problem Understanding
 2. Key Concepts (with tables)
@@ -147,6 +150,11 @@ Every subject folder follows the same clean pattern:
 9. Common Mistakes to Avoid
 10. Alternative Versions
 11. Summary Table for the Lab Record
+
+> Theory and algorithm assignments use the same teaching style but swap the
+> source-code sections for what the subject needs. For example, the **Algorithm
+> & Flowchart** answers include step-by-step algorithms, Mermaid flowcharts,
+> and plain-text flowcharts.
 
 ---
 

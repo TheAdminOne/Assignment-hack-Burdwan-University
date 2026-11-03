@@ -23,7 +23,7 @@ where:
 
 The corrected form is used below.
 
-**Sample values used for plotting:** u = 0 m/s, a = 2 m/s², t from 0 to 10 s, v from 0 to 20 m/s.
+The program reads **u** and **a** from the user. The dry run below uses the sample values **u = 0 m/s** and **a = 2 m/s²**, with t from 0 to 10 s.
 
 ### 2. Key Concepts Used
 
@@ -39,44 +39,50 @@ The corrected form is used below.
 ### 3. Algorithm (Step-by-Step)
 
 1. Import `numpy as np` and `matplotlib.pyplot as plt`.
-2. Choose **u = 0**, **a = 2**.
-3. **Graph 1 (v vs t):** `t1 = np.linspace(0, 10)`; `v = u + a*t1`; plot.
-4. **Graph 2 (s vs t):** `s2 = u*t1 + 0.5*a*t1**2`; plot.
-5. **Graph 3 (s vs v):** `v3 = np.linspace(0, 20)`; `s3 = (v3**2 - u**2)/(2*a)`; plot.
-6. Add titles/labels to each subplot, `plt.tight_layout()`, `plt.show()`.
+2. Read the initial velocity **u** and acceleration **a** from the user.
+3. If **a = 0**, print an error and stop (equation III would divide by zero).
+4. Create the time array `t = np.linspace(0, 10, 200)`.
+5. **Graph 1 (v vs t):** `v = u + a*t`; plot v against t.
+6. **Graph 2 (s vs t):** `s = u*t + 0.5*a*t**2`; plot s against t.
+7. **Graph 3 (s vs v):** use the same `v` values from Graph 1; `s = (v**2 - u**2)/(2*a)`; plot s against v.
+8. Add titles/labels to each subplot, `plt.tight_layout()`, `plt.show()`.
 
 ### 4. The Python Program (Source Code)
 
 ```python
-# Graphs of the three equations of motion (u = 0, a = 2)
+# Graphs of the three equations of motion
 
 import numpy as np
 import matplotlib.pyplot as plt
 
-u = 0.0      # initial velocity (m/s)
-a = 2.0      # acceleration (m/s^2)
-
-def v_after_t(t):
+def v_after_t(t, u, a):
     """Eq I: v = u + a*t"""
     return u + a * t
 
-def s_after_t(t):
+def s_after_t(t, u, a):
     """Eq II: s = u*t + 0.5*a*t^2"""
     return u * t + 0.5 * a * t**2
 
-def s_from_v(v):
+def s_from_v(v, u, a):
     """Eq III: s = (v^2 - u^2) / (2*a)"""
     return (v**2 - u**2) / (2 * a)
 
 def main():
+    u = float(input("Enter initial velocity u (m/s): "))
+    a = float(input("Enter acceleration a (m/s^2): "))
+
+    if a == 0:
+        print("Acceleration must be non-zero for equation III.")
+        return
+
     t = np.linspace(0, 10, 200)      # time 0..10 s
-    v = np.linspace(0, 20, 200)      # velocity 0..20 m/s
+    v = v_after_t(t, u, a)          # velocities used by Graph I and Graph III
 
     plt.figure(figsize=(12, 4))
 
     # Graph I — v vs t
     plt.subplot(1, 3, 1)
-    plt.plot(t, v_after_t(t), 'b-')
+    plt.plot(t, v_after_t(t, u, a), 'b-')
     plt.xlabel("Time t (s)")
     plt.ylabel("Velocity v (m/s)")
     plt.title("I: v = u + at")
@@ -84,7 +90,7 @@ def main():
 
     # Graph II — s vs t
     plt.subplot(1, 3, 2)
-    plt.plot(t, s_after_t(t), 'r-')
+    plt.plot(t, s_after_t(t, u, a), 'r-')
     plt.xlabel("Time t (s)")
     plt.ylabel("Displacement s (m)")
     plt.title("II: s = ut + (1/2)at^2")
@@ -92,7 +98,7 @@ def main():
 
     # Graph III — s vs v
     plt.subplot(1, 3, 3)
-    plt.plot(v, s_from_v(v), 'g-')
+    plt.plot(v, s_from_v(v, u, a), 'g-')
     plt.xlabel("Velocity v (m/s)")
     plt.ylabel("Displacement s (m)")
     plt.title("III: s = (v^2 - u^2)/(2a)")
@@ -109,15 +115,16 @@ if __name__ == "__main__":
 
 | Code | What it does |
 |---|---|
-| `u = 0.0`, `a = 2.0` | Constants for a uniformly accelerating object from rest |
-| `def v_after_t(t): return u + a * t` | Function for equation I (linear in t) |
-| `def s_after_t(t): return u*t + 0.5*a*t**2` | Function for equation II (quadratic in t) |
-| `def s_from_v(v): return (v**2 - u**2)/(2*a)` | Function for equation III (quadratic in v) |
+| `u = float(input(...))`, `a = float(input(...))` | Reads the initial velocity and acceleration from the user |
+| `if a == 0:` | Guards against division by zero in equation III |
+| `def v_after_t(t, u, a): return u + a * t` | Function for equation I (linear in t) |
+| `def s_after_t(t, u, a): return u*t + 0.5*a*t**2` | Function for equation II (quadratic in t) |
+| `def s_from_v(v, u, a): return (v**2 - u**2)/(2*a)` | Function for equation III (quadratic in v) |
 | `np.linspace(0, 10, 200)` | 200 time samples 0…10 s |
-| `np.linspace(0, 20, 200)` | 200 velocity samples 0…20 m/s |
+| `v = v_after_t(t, u, a)` | Velocity values used by both Graph I and Graph III |
 | `plt.figure(figsize=(12, 4))` | Wide figure to fit three side-by-side graphs |
 | `plt.subplot(1, 3, 1)` | 1 row, 3 columns; activates the 1st subplot |
-| `plt.plot(t, v_after_t(t), 'b-')` | Draws the blue straight line v = 2t |
+| `plt.plot(t, v_after_t(t, u, a), 'b-')` | Draws the blue straight line v = u + at |
 | `plt.tight_layout()` | Prevents overlapping titles/labels |
 | `plt.show()` | Displays all three graphs |
 
@@ -137,9 +144,15 @@ if __name__ == "__main__":
 
 > **Check (consistency):** at t = 5, equation II gives s = 25 m; equation III with v = 10 gives s = (100−0)/(2·2) = 25 m. ✓ The three graphs agree.
 
-### 7. Sample Output
+### 7. Sample Input / Output
 
-Three side-by-side graphs:
+**Input:**
+```
+Enter initial velocity u (m/s): 0
+Enter acceleration a (m/s^2): 2
+```
+
+**Output:** three side-by-side graphs:
 1. **I: v = u + at** — blue straight line from (0,0) to (10,20).
 2. **II: s = ut + ½at²** — red parabola from (0,0) reaching 100 m at t = 10.
 3. **III: s = (v²−u²)/(2a)** — green parabola from (0,0) reaching 100 m at v = 20.
@@ -150,7 +163,7 @@ Three side-by-side graphs:
 |---|---|
 | u = 0 (from rest) | All three graphs pass through the origin — used in the sample |
 | u ≠ 0 | Graph I starts at v = u; graphs II/III shift accordingly |
-| a = 0 | Constant velocity — equation III is undefined (division by zero); graph I is horizontal |
+| a = 0 | Constant velocity — equation III is undefined (division by zero), so the program rejects this input |
 | a < 0 (deceleration) | v decreases with t; curves slope downward |
 | Large t | Displacement grows quadratically — values get big fast |
 
@@ -163,13 +176,13 @@ Three side-by-side graphs:
 5. **Forgetting units in labels** — (m/s), (s), (m) are expected in a physics lab record.
 6. **Not using functions** — the lab requires user-defined functions for the formulas.
 
-### 10. Alternative Version — All Three on One Graph (s and v against t)
+### 10. Alternative Version — v and s on One Graph (against t)
 
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
 
-u, a = 0.0, 2.0
+u, a = 0.0, 2.0          # sample values
 t = np.linspace(0, 10, 200)
 
 v = u + a * t
@@ -184,6 +197,9 @@ plt.legend()
 plt.grid(True, linestyle='--', alpha=0.5)
 plt.show()
 ```
+
+> Equation III has **velocity on the x-axis**, so it is shown as a separate
+> subplot in the main program rather than being forced onto the same time axis.
 
 ### 11. Brief Result Table (for the lab record)
 
