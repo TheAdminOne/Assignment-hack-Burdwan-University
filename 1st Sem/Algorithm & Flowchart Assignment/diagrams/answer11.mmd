@@ -1,0 +1,16 @@
+flowchart TD
+    A([Start]) --> B[/Read n/]
+    B --> C{n = 0?}
+    C -->|Yes| D[/Print 0/]
+    D --> Z([Stop])
+    C -->|No| E{n is negative?}
+    E -->|Yes| F[/Print "−" and set n ← −n/]
+    E -->|No| G[binary ← empty]
+    F --> G
+    G --> H{n > 0?}
+    H -->|Yes| I[r ← n mod 2]
+    I --> J[binary ← r + binary]
+    J --> K[n ← n div 2]
+    K --> H
+    H -->|No| L[/Print binary/]
+    L --> Z

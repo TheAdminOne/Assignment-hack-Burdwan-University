@@ -47,27 +47,11 @@ A number n is composite if it has a factor other than 1 and n. If n has a factor
 
 ### 4. Flowchart
 
-```mermaid
-flowchart TD
-    A([Start]) --> B[/Read n/]
-    B --> C{n ≤ 1?}
-    C -->|Yes| D[/Print Not prime/]
-    D --> Z([Stop])
-    C -->|No| E[i ← 2, isPrime ← true]
-    E --> F{i × i ≤ n?}
-    F -->|Yes| G{n mod i = 0?}
-    G -->|Yes| H[isPrime ← false]
-    H --> K{isPrime = true?}
-    G -->|No| J[i ← i + 1]
-    J --> F
-    F -->|No| K
-    K -->|Yes| L[/Print Prime/]
-    K -->|No| M[/Print Not prime/]
-    L --> Z
-    M --> Z
-```
+![Flowchart: Determine Whether a Given Number is Prime or Not](images/answer6.svg)
 
-**Plain-text flowchart** (for viewers that do not render Mermaid):
+<sub>Mermaid source: [`diagrams/answer6.mmd`](diagrams/answer6.mmd)</sub>
+
+**Plain-text flowchart** (text fallback):
 
 ```text
 START

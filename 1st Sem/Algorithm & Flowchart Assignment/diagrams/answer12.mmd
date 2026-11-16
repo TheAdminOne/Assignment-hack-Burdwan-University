@@ -1,0 +1,12 @@
+flowchart TD
+    A([Start]) --> B[/Read string S/]
+    B --> C[left ← 0, right ← length of S − 1]
+    C --> D{left < right?}
+    D -->|Yes| E{Characters at left and right match?}
+    E -->|No| F[/Print Not a palindrome/]
+    F --> Z([Stop])
+    E -->|Yes| G[left ← left + 1]
+    G --> H[right ← right − 1]
+    H --> D
+    D -->|No| I[/Print Palindrome/]
+    I --> Z

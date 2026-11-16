@@ -1,0 +1,17 @@
+flowchart TD
+    A([Start]) --> B[/Read n/]
+    B --> C{n ≤ 1?}
+    C -->|Yes| D[/Print Not prime/]
+    D --> Z([Stop])
+    C -->|No| E[i ← 2, isPrime ← true]
+    E --> F{i × i ≤ n?}
+    F -->|Yes| G{n mod i = 0?}
+    G -->|Yes| H[isPrime ← false]
+    H --> K{isPrime = true?}
+    G -->|No| J[i ← i + 1]
+    J --> F
+    F -->|No| K
+    K -->|Yes| L[/Print Prime/]
+    K -->|No| M[/Print Not prime/]
+    L --> Z
+    M --> Z

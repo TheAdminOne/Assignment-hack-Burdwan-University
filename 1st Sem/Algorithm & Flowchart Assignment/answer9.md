@@ -48,23 +48,11 @@ This process repeats until the number becomes 0.
 
 ### 4. Flowchart
 
-```mermaid
-flowchart TD
-    A([Start]) --> B[/Read n/]
-    B --> C{n is negative?}
-    C -->|Yes| D[n ← −n]
-    C -->|No| E[sum ← 0]
-    D --> E
-    E --> F{n ≠ 0?}
-    F -->|Yes| G[d ← n mod 10]
-    G --> H[sum ← sum + d]
-    H --> I[n ← n div 10]
-    I --> F
-    F -->|No| J[/Print sum/]
-    J --> Z([Stop])
-```
+![Flowchart: Calculate the Sum of Digits of a Given Number](images/answer9.svg)
 
-**Plain-text flowchart** (for viewers that do not render Mermaid):
+<sub>Mermaid source: [`diagrams/answer9.mmd`](diagrams/answer9.mmd)</sub>
+
+**Plain-text flowchart** (text fallback):
 
 ```text
 START

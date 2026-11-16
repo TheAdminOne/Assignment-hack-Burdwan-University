@@ -1,0 +1,13 @@
+flowchart TD
+    A([Start]) --> B[/Read A, B and C/]
+    B --> C{A ≥ B?}
+    C -->|Yes| D{A ≥ C?}
+    C -->|No| E{B ≥ C?}
+    D -->|Yes| F[/Print A is the greatest/]
+    D -->|No| G[/Print C is the greatest/]
+    E -->|Yes| H[/Print B is the greatest/]
+    E -->|No| I[/Print C is the greatest/]
+    F --> J([Stop])
+    G --> J
+    H --> J
+    I --> J

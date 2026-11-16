@@ -66,26 +66,11 @@ Examples:
 
 ### 4. Flowchart
 
-```mermaid
-flowchart TD
-    A([Start]) --> B[/Read n/]
-    B --> C{n ≤ 0?}
-    C -->|Yes| D[/Print Invalid input/]
-    D --> Z([Stop])
-    C -->|No| E[sum ← 0, fact ← 1]
-    E --> F[i ← 1]
-    F --> G{i ≤ n?}
-    G -->|Yes| H[fact ← fact × i]
-    H --> I[term ← i / fact]
-    I --> J[sum ← sum + term]
-    J --> K[/Print term/]
-    K --> L[i ← i + 1]
-    L --> G
-    G -->|No| M[/Print sum/]
-    M --> Z
-```
+![Flowchart: Print the Series 1/1! + 2/2! + 3/3! + ⋯ + n/n!](images/answer14.svg)
 
-**Plain-text flowchart** (for viewers that do not render Mermaid):
+<sub>Mermaid source: [`diagrams/answer14.mmd`](diagrams/answer14.mmd)</sub>
+
+**Plain-text flowchart** (text fallback):
 
 ```text
 START

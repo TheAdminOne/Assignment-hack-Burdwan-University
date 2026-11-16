@@ -55,24 +55,11 @@ Examples:
 
 ### 4. Flowchart
 
-```mermaid
-flowchart TD
-    A([Start]) --> B[/Read n/]
-    B --> C{n ≤ 0?}
-    C -->|Yes| D[/Print Invalid input/]
-    D --> Z([Stop])
-    C -->|No| E[a ← 0, b ← 1, count ← 1]
-    E --> F{count ≤ n?}
-    F -->|Yes| G[/Print a/]
-    G --> H[next ← a + b]
-    H --> I[a ← b]
-    I --> J[b ← next]
-    J --> K[count ← count + 1]
-    K --> F
-    F -->|No| Z
-```
+![Flowchart: Generate the Fibonacci Series up to a Given Term](images/answer8.svg)
 
-**Plain-text flowchart** (for viewers that do not render Mermaid):
+<sub>Mermaid source: [`diagrams/answer8.mmd`](diagrams/answer8.mmd)</sub>
+
+**Plain-text flowchart** (text fallback):
 
 ```text
 START

@@ -51,22 +51,11 @@ The flowchart uses a **loop** so that the logic is easy to understand and can be
 
 ### 4. Flowchart
 
-```mermaid
-flowchart TD
-    A([Start]) --> B[/Read n/]
-    B --> C{n is negative?}
-    C -->|Yes| D[/Print Invalid input/]
-    D --> Z([Stop])
-    C -->|No| E[sum ← 0, i ← 1]
-    E --> F{i ≤ n?}
-    F -->|Yes| G[sum ← sum + i]
-    G --> H[i ← i + 1]
-    H --> F
-    F -->|No| I[/Print sum/]
-    I --> Z
-```
+![Flowchart: Calculate the Sum of the First n Natural Numbers](images/answer4.svg)
 
-**Plain-text flowchart** (for viewers that do not render Mermaid):
+<sub>Mermaid source: [`diagrams/answer4.mmd`](diagrams/answer4.mmd)</sub>
+
+**Plain-text flowchart** (text fallback):
 
 ```text
 START

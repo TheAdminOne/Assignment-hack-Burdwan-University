@@ -42,20 +42,11 @@ A **flowchart** represents this logic pictorially using standard symbols.
 
 ### 4. Flowchart
 
-```mermaid
-flowchart TD
-    A([Start]) --> B[/Read A and B/]
-    B --> C{A greater than B?}
-    C -->|Yes| D[/Print A is the greatest/]
-    C -->|No| E{A less than B?}
-    E -->|Yes| F[/Print B is the greatest/]
-    E -->|No| G[/Print Both are equal/]
-    D --> H([Stop])
-    F --> H
-    G --> H
-```
+![Flowchart: Determine the Greatest of Two Numbers](images/answer1.svg)
 
-**Plain-text flowchart** (for viewers that do not render Mermaid):
+<sub>Mermaid source: [`diagrams/answer1.mmd`](diagrams/answer1.mmd)</sub>
+
+**Plain-text flowchart** (text fallback):
 
 ```text
 START

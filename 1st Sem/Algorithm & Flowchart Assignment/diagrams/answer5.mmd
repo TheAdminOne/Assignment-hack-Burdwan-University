@@ -1,0 +1,13 @@
+flowchart TD
+    A([Start]) --> B[/Read a and b/]
+    B --> C[Make a and b positive]
+    C --> D{a = 0 and b = 0?}
+    D -->|Yes| E[/Print HCF is undefined/]
+    E --> Z([Stop])
+    D -->|No| F{b ≠ 0?}
+    F -->|Yes| G[r ← a mod b]
+    G --> H[a ← b]
+    H --> I[b ← r]
+    I --> F
+    F -->|No| J[/Print a as HCF/]
+    J --> Z

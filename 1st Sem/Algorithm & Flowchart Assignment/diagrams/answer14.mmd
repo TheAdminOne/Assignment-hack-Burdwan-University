@@ -1,0 +1,16 @@
+flowchart TD
+    A([Start]) --> B[/Read n/]
+    B --> C{n ≤ 0?}
+    C -->|Yes| D[/Print Invalid input/]
+    D --> Z([Stop])
+    C -->|No| E[sum ← 0, fact ← 1]
+    E --> F[i ← 1]
+    F --> G{i ≤ n?}
+    G -->|Yes| H[fact ← fact × i]
+    H --> I[term ← i / fact]
+    I --> J[sum ← sum + term]
+    J --> K[/Print term/]
+    K --> L[i ← i + 1]
+    L --> G
+    G -->|No| M[/Print sum/]
+    M --> Z

@@ -1,0 +1,16 @@
+flowchart TD
+    A([Start]) --> B[/Read n/]
+    B --> C{n is negative?}
+    C -->|Yes| D[/Print Not a palindrome/]
+    D --> Z([Stop])
+    C -->|No| E[original ← n, reverse ← 0]
+    E --> F{n > 0?}
+    F -->|Yes| G[d ← n mod 10]
+    G --> H[reverse ← reverse × 10 + d]
+    H --> I[n ← n div 10]
+    I --> F
+    F -->|No| J{original = reverse?}
+    J -->|Yes| K[/Print Palindrome/]
+    J -->|No| L[/Print Not a palindrome/]
+    K --> Z
+    L --> Z

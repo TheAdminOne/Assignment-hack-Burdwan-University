@@ -1,0 +1,10 @@
+flowchart TD
+    A([Start]) --> B[/Read A and B/]
+    B --> C{A greater than B?}
+    C -->|Yes| D[/Print A is the greatest/]
+    C -->|No| E{A less than B?}
+    E -->|Yes| F[/Print B is the greatest/]
+    E -->|No| G[/Print Both are equal/]
+    D --> H([Stop])
+    F --> H
+    G --> H

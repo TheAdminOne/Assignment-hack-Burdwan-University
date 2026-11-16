@@ -1,0 +1,14 @@
+flowchart TD
+    A([Start]) --> B[/Read n/]
+    B --> C{n ≤ 0?}
+    C -->|Yes| D[/Print Invalid input/]
+    D --> Z([Stop])
+    C -->|No| E[a ← 0, b ← 1, count ← 1]
+    E --> F{count ≤ n?}
+    F -->|Yes| G[/Print a/]
+    G --> H[next ← a + b]
+    H --> I[a ← b]
+    I --> J[b ← next]
+    J --> K[count ← count + 1]
+    K --> F
+    F -->|No| Z

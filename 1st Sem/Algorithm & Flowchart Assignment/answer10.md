@@ -58,24 +58,11 @@ Examples:
 
 ### 4. Flowchart
 
-```mermaid
-flowchart TD
-    A([Start]) --> B[/Read binary number b/]
-    B --> C[decimal ← 0, place ← 1]
-    C --> D{b ≠ 0?}
-    D -->|Yes| E[d ← b mod 10]
-    E --> F{d = 0 or d = 1?}
-    F -->|No| G[/Print Invalid binary number/]
-    G --> Z([Stop])
-    F -->|Yes| H[decimal ← decimal + d × place]
-    H --> I[place ← place × 2]
-    I --> J[b ← b div 10]
-    J --> D
-    D -->|No| K[/Print decimal/]
-    K --> Z
-```
+![Flowchart: Convert a Binary Number to Decimal](images/answer10.svg)
 
-**Plain-text flowchart** (for viewers that do not render Mermaid):
+<sub>Mermaid source: [`diagrams/answer10.mmd`](diagrams/answer10.mmd)</sub>
+
+**Plain-text flowchart** (text fallback):
 
 ```text
 START

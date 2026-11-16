@@ -49,23 +49,11 @@ The remainder becomes the new divisor, and the previous divisor becomes the new 
 
 ### 4. Flowchart
 
-```mermaid
-flowchart TD
-    A([Start]) --> B[/Read a and b/]
-    B --> C[Make a and b positive]
-    C --> D{a = 0 and b = 0?}
-    D -->|Yes| E[/Print HCF is undefined/]
-    E --> Z([Stop])
-    D -->|No| F{b ≠ 0?}
-    F -->|Yes| G[r ← a mod b]
-    G --> H[a ← b]
-    H --> I[b ← r]
-    I --> F
-    F -->|No| J[/Print a as HCF/]
-    J --> Z
-```
+![Flowchart: Calculate the HCF (Highest Common Factor) of Two Numbers](images/answer5.svg)
 
-**Plain-text flowchart** (for viewers that do not render Mermaid):
+<sub>Mermaid source: [`diagrams/answer5.mmd`](diagrams/answer5.mmd)</sub>
+
+**Plain-text flowchart** (text fallback):
 
 ```text
 START

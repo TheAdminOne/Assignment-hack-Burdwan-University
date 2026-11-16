@@ -50,26 +50,11 @@ For **13**, the remainders are `1, 0, 1, 1` from bottom to top, giving `1101`.
 
 ### 4. Flowchart
 
-```mermaid
-flowchart TD
-    A([Start]) --> B[/Read n/]
-    B --> C{n = 0?}
-    C -->|Yes| D[/Print 0/]
-    D --> Z([Stop])
-    C -->|No| E{n is negative?}
-    E -->|Yes| F[/Print "−" and set n ← −n/]
-    E -->|No| G[binary ← empty]
-    F --> G
-    G --> H{n > 0?}
-    H -->|Yes| I[r ← n mod 2]
-    I --> J[binary ← r + binary]
-    J --> K[n ← n div 2]
-    K --> H
-    H -->|No| L[/Print binary/]
-    L --> Z
-```
+![Flowchart: Convert a Decimal Number to Binary](images/answer11.svg)
 
-**Plain-text flowchart** (for viewers that do not render Mermaid):
+<sub>Mermaid source: [`diagrams/answer11.mmd`](diagrams/answer11.mmd)</sub>
+
+**Plain-text flowchart** (text fallback):
 
 ```text
 START

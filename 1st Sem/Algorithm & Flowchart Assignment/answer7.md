@@ -56,31 +56,11 @@ Examples:
 
 ### 4. Flowchart
 
-```mermaid
-flowchart TD
-    A([Start]) --> B[/Read n/]
-    B --> C{n is negative?}
-    C -->|Yes| D[/Print Not an Armstrong number/]
-    D --> Z([Stop])
-    C -->|No| E[temp ← n, count ← 0]
-    E --> F{temp ≠ 0?}
-    F -->|Yes| G[count ← count + 1]
-    G --> H[temp ← temp div 10]
-    H --> F
-    F -->|No| I[temp ← n, sum ← 0]
-    I --> J{temp ≠ 0?}
-    J -->|Yes| K[d ← temp mod 10]
-    K --> L[sum ← sum + d^count]
-    L --> M[temp ← temp div 10]
-    M --> J
-    J -->|No| N{sum = n?}
-    N -->|Yes| O[/Print Armstrong number/]
-    N -->|No| P[/Print Not an Armstrong number/]
-    O --> Z
-    P --> Z
-```
+![Flowchart: Determine Whether a Given Number is an Armstrong Number](images/answer7.svg)
 
-**Plain-text flowchart** (for viewers that do not render Mermaid):
+<sub>Mermaid source: [`diagrams/answer7.mmd`](diagrams/answer7.mmd)</sub>
+
+**Plain-text flowchart** (text fallback):
 
 ```text
 START

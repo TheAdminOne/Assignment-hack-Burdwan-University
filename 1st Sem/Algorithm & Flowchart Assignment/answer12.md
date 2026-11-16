@@ -56,22 +56,11 @@ If any pair does not match, the string is **not** a palindrome.
 
 ### 4. Flowchart
 
-```mermaid
-flowchart TD
-    A([Start]) --> B[/Read string S/]
-    B --> C[left ← 0, right ← length of S − 1]
-    C --> D{left < right?}
-    D -->|Yes| E{Characters at left and right match?}
-    E -->|No| F[/Print Not a palindrome/]
-    F --> Z([Stop])
-    E -->|Yes| G[left ← left + 1]
-    G --> H[right ← right − 1]
-    H --> D
-    D -->|No| I[/Print Palindrome/]
-    I --> Z
-```
+![Flowchart: Check Whether a Given String is a Palindrome](images/answer12.svg)
 
-**Plain-text flowchart** (for viewers that do not render Mermaid):
+<sub>Mermaid source: [`diagrams/answer12.mmd`](diagrams/answer12.mmd)</sub>
+
+**Plain-text flowchart** (text fallback):
 
 ```text
 START

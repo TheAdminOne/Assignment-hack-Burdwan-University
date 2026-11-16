@@ -35,23 +35,11 @@ Using **≥** (greater than or equal to) instead of **>** makes the flowchart wo
 
 ### 4. Flowchart
 
-```mermaid
-flowchart TD
-    A([Start]) --> B[/Read A, B and C/]
-    B --> C{A ≥ B?}
-    C -->|Yes| D{A ≥ C?}
-    C -->|No| E{B ≥ C?}
-    D -->|Yes| F[/Print A is the greatest/]
-    D -->|No| G[/Print C is the greatest/]
-    E -->|Yes| H[/Print B is the greatest/]
-    E -->|No| I[/Print C is the greatest/]
-    F --> J([Stop])
-    G --> J
-    H --> J
-    I --> J
-```
+![Flowchart: Determine the Greatest of Three Numbers](images/answer2.svg)
 
-**Plain-text flowchart** (for viewers that do not render Mermaid):
+<sub>Mermaid source: [`diagrams/answer2.mmd`](diagrams/answer2.mmd)</sub>
+
+**Plain-text flowchart** (text fallback):
 
 ```text
 START

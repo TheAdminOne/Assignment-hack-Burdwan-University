@@ -6,8 +6,11 @@
 >
 > Tap any question to open its answer. **Every question asks for both an
 > algorithm and a flowchart**, and every answer provides both. Each flowchart is
-> shown as a Mermaid diagram and as a plain-text diagram, so it is readable in
-> any editor.
+> shown as a rendered SVG image and as a plain-text diagram, so it is readable in
+> any editor, on any device, and without relying on GitHub's Mermaid renderer.
+>
+> The editable Mermaid sources are in [`diagrams/`](diagrams/) and the rendered
+> images are in [`images/`](images/).
 
 ---
 

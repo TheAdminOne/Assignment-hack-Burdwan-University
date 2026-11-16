@@ -52,22 +52,11 @@ Examples:
 
 ### 4. Flowchart
 
-```mermaid
-flowchart TD
-    A([Start]) --> B[/Read n/]
-    B --> C{n is negative?}
-    C -->|Yes| D[/Print Invalid input/]
-    D --> Z([Stop])
-    C -->|No| E[fact ← 1, i ← 1]
-    E --> F{i ≤ n?}
-    F -->|Yes| G[fact ← fact × i]
-    G --> H[i ← i + 1]
-    H --> F
-    F -->|No| I[/Print fact/]
-    I --> Z
-```
+![Flowchart: Calculate the Factorial of a Given Integer](images/answer3.svg)
 
-**Plain-text flowchart** (for viewers that do not render Mermaid):
+<sub>Mermaid source: [`diagrams/answer3.mmd`](diagrams/answer3.mmd)</sub>
+
+**Plain-text flowchart** (text fallback):
 
 ```text
 START
