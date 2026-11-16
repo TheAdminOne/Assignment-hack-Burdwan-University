@@ -14,9 +14,13 @@ for n in $(seq 1 14); do
 done
 ```
 
-`mermaid-config.json` sets `htmlLabels: false`, so the SVGs use plain `<text>`
-elements instead of `<foreignObject>`. That keeps them portable across GitHub,
-Markdown viewers, and offline editors.
+`mermaid-config.json` sets:
+
+- `htmlLabels: false` — the SVGs use plain `<text>` elements instead of
+  `<foreignObject>`, so they stay portable across GitHub, Markdown viewers, and
+  offline editors.
+- `useMaxWidth: false` — the SVGs get explicit `width`/`height` attributes.
+  Without this, browsers treat them as 300×150 and GitHub shows them very small.
 
 The `-b white` flag gives the diagrams a white background so the dark text stays
 readable in GitHub's dark mode.
